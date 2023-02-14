@@ -1,0 +1,82 @@
+<style>
+#IDSelector
+    {
+        margin-left: 15px;
+        font-size: small;
+        color: orange;
+    }
+</style>
+
+<script>
+    let requestURL = 'https://raw.githubusercontent.com/drgap/json_example/main/company.json';
+
+
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function ()
+    {
+        var companyData = request.response;
+        console.log("loaded");
+        console.log(companyData);
+
+        var companyName = companyData.companyName;
+        console.log("c Name: " + companyName);
+
+        var companyDivision = companyData.division;
+        console.log("division: " + companyDivision)
+
+        var companyHeadName = companyData.divisionHeadName;
+        console.log("comp head name: " + companyHeadName);
+
+        var companyLocation = companyData.location;
+        console.log("Location: " + companyLocation);
+
+        var companyMembers = companyData.members;
+        
+        //creating HTML body
+        var header = document.createElement("header");
+        var headerTitle = document.createElement("h1");
+        var divisionHeader = document.createElement("h2");
+        var empName = document.createElement("paragraph");
+
+        headerTitle.textContent = companyName;
+        header.textContent = "Division: " + companyDivision +  "\nHead " + companyHeadName;
+
+
+        header.appendChild(divisionHeader);
+        header.appendChild(headerTitle);
+        document.body.appendChild(header);
+
+        //populating employees
+        for (var i = 0; i < companyMembers.length; i++)
+        {
+            var empName = document.createElement("p");
+            empName.textContent = companyMembers[i].name + ", " + companyMembers[i].gender
+                + "\nAge: " + companyMembers[i].age
+                + ", Favorite Fruit:" + companyMembers[i].favoriteFruit
+                + "Contacts:\n";
+
+
+            document.body.appendChild(empName);
+
+        }
+
+        for (var i = 0; i < companyMembers[0].contacts.length; i++)
+        {
+            console.log("contacts: " + companyMembers[0].contacts[i].name + ", " + companyMembers[0].contacts[i].company);
+        }
+    }
+</script>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Problem 6 - Joshua Blossomgame</title>
+</head>
+<body>
+
+</body>
+</html>
